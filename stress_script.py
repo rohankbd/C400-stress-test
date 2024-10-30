@@ -31,7 +31,7 @@ class StressTest:
             logging.error(f"Memory stress test error: {str(e)}")
 
     def disk_stress_test(self):
-        logging.info("Starting Disk Stress Test")
+        logging.info("Starting Disk Stress Test...")
         try:
             # Start stress-ng for disk testing
             subprocess.Popen(["stress-ng", "--io", "4", "--timeout", "60s"])
