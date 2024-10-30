@@ -4,7 +4,6 @@ import time
 import mysql.connector
 import logging
 
-# Configure logging
 logging.basicConfig(
     filename='stress_test.log',
     level=logging.DEBUG,
