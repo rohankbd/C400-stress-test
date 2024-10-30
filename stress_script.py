@@ -42,7 +42,7 @@ class StressTest:
             logging.error(f"Disk stress test error: {str(e)}")
 
     def network_stress_test(self):
-        logging.info("Starting Network Stress Test")
+        logging.info("Starting Network Stress Test...")
         try:
             # Start iperf3 server on vm_2
             subprocess.Popen(["iperf3", "-c", "vm2", "-t", "60", "-p", "5201"])
