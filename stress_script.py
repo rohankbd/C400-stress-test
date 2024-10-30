@@ -58,7 +58,7 @@ class StressTest:
             logging.error(f"Network stress test error: {str(e)}")
 
     def cpu_stress_test(self):
-        logging.info("Starting CPU Stress Test")
+        logging.info("Starting CPU Stress Test...")
         try:
             # Start stress-ng for CPU testing
             subprocess.Popen(["stress-ng", "--cpu", "4", "--timeout", "60s"])
