@@ -20,7 +20,7 @@ class StressTest:
         }
 
     def memory_stress_test(self):
-        logging.info("Starting Memory Stress Test")
+        logging.info("Starting Memory Stress Test...")
         try:
             # Start stress-ng for memory testing
             subprocess.Popen(["stress-ng", "--vm", "2", "--vm-bytes", "80%", "--timeout", "60s"])
