@@ -1,0 +1,52 @@
+groups:
+- name: node_alerts
+  rules:
+  # CPU Usage Alert
+  - alert: HighCPUUsage
+    expr: 100 - (avg by(instance) (rate(node_cpu_seconds_total{mode="idle"}[5m])) * 100) > 5
+    for: 1m
+    labels:
+      severity: warning
+    annotations:
+      description: "CPU usage is above 5% for 1 minute"
+      value: "{{ $value }}%"
+
+  # Memory Usage Alert
+  - alert: HighMemoryUsage
+    expr: (node_memory_MemTotal_bytes - node_memory_MemFree_bytes - node_memory_Cached_bytes - node_memory_Buffers_bytes) / node_memory_MemTotal_bytes * 100 > 5
+    for: 1m
+    labels:
+      severity: warning
+    annotations:
+      description: "Memory usage is above 5% for 1 minute"
+      value: "{{ $value }}%"
+
+  # Disk Usage Alert
+  - alert: HighDiskUsage
+    expr: 100 - ((node_filesystem_avail_bytes{mountpoint="/"} * 100) / node_filesystem_size_bytes{mountpoint="/"}) > 5
+    for: 1m
+    labels:
+      severity: warning
+    annotations:
+      description: "Disk usage is above 5% for 1 minute"
+      value: "{{ $value }}%"
+
+  # Network Traffic Alert
+  - alert: HighNetworkTraffic
+    expr: rate(node_network_receive_bytes_total[5m]) + rate(node_network_transmit_bytes_total[5m]) > 10
+    for: 1m
+    labels:
+      severity: warning
+    annotations:
+      description: "Network traffic is above 1MB/s for 1 minute"
+      value: "{{ $value }} bytes/sec"
+
+  # MySQL QPS Alert
+  - alert: HighMySQLQPS
+    expr: rate(mysql_global_status_queries[30s]) > 100
+    for: 1m
+    labels:
+      severity: warning
+    annotations:
+      summary: "High QPS detected in MySQL"
+      description: "The MySQL query rate has exceeded 700 queries per second for 1 minute. Current QPS: {{ $value }}"
